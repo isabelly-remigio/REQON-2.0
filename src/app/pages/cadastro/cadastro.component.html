@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="header">
+    <h1>Fazer cadastro</h1>
+    <p class="perfil-tag">{{ perfilService.getPerfil() | uppercase }}</p>
+  </div>
+
+  <form [formGroup]="cadastroForm" (ngSubmit)="onSubmit()">
+    <!-- Campos comuns -->
+    <div class="form-group">
+      <label>E-mail</label>
+      <input type="email" formControlName="email" placeholder="exemplo@dominio.com">
+    </div>
+
+    <div class="form-group">
+      <label>Nome Completo</label>
+      <input type="text" formControlName="nome" placeholder="Seu nome">
+    </div>
+
+    <!-- Campos específicos por perfil -->
+    <ng-container *ngIf="perfilService.getPerfil() === 'aluno'; else servidorFields">
+      <div class="form-group">
+        <label>Matrícula</label>
+        <input type="text" formControlName="matricula" placeholder="Número da matrícula">
+      </div>
+      <div class="form-group">
+        <label>Curso (Opcional)</label>
+        <input type="text" formControlName="curso" placeholder="Seu curso">
+      </div>
+    </ng-container>
+
+    <ng-template #servidorFields>
+      <div class="form-group">
+        <label>Matrícula Funcional</label>
+        <input type="text" formControlName="matriculaFuncional" placeholder="Matrícula institucional">
+      </div>
+      <div class="form-group">
+        <label>Setor</label>
+        <input type="text" formControlName="setor" placeholder="Seu setor de trabalho">
+      </div>
+    </ng-template>
+
+    <div class="form-group">
+      <label>Senha</label>
+      <input type="password" formControlName="senha" placeholder="Mínimo 6 caracteres">
+    </div>
+
+    <button type="submit" [disabled]="cadastroForm.invalid">CADASTRAR</button>
+  </form>
+
+  <div class="footer">
+    <p>Já tem uma conta? <a routerLink="/login">Faça login</a></p>
+    <p class="small-text">
+      Lorem ipsum tex biome ipsum dolor sit amet, consectetur adipiscing elit.
+      Alumne justuriam sed do eius 18000.
+    </p>
+  </div>
+</div>
